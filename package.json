@@ -1,0 +1,25 @@
+{
+  "name": "com.homelessskin.shaders",
+  "displayName": "Shaders",
+  "version": "1.0.0",
+  "description": "shaders",
+  "author": {
+    "name": "RU_1n",
+    "email": "your@email.com"
+  },
+  "keywords": [
+    "shaders"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/homelessskin/shared-shaders.git"
+  },
+  "hideInEditor": false,
+  "dependencies": {
+    "com.unity.entities": "1.3.4",
+    "com.unity.physics": "1.3.4",
+    "com.homelessskin.core": "1.0.0",
+    "com.homelessskin.input": "1.0.0",
+    "com.homelessskin.ui": "1.0.0"
+  }
+}
