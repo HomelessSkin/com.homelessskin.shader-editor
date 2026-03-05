@@ -1,10 +1,11 @@
+#if UNITY_EDITOR
 using Core;
 
 using Input;
 
 using Unity.Entities;
 
-namespace Shaders
+namespace ShaderEditor
 {
     [UpdateInGroup(typeof(InputSystemGroup))]
     partial class CodeInputSystem : HandleSystem
@@ -17,3 +18,4 @@ namespace Shaders
         }
     }
 }
+#endif

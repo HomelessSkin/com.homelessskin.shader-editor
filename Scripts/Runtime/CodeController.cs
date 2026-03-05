@@ -1,9 +1,11 @@
+#if UNITY_EDITOR
 using Input;
 
-namespace Shaders
+namespace ShaderEditor
 {
     public class CodeController : Controller
     {
 
     }
 }
+#endif

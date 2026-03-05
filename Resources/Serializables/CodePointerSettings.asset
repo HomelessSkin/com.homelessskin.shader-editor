@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: com.homelessskin.shaders::Shaders.CodePointerSettings
   LogActivity: 0
   LogActions: 0
+  LogStates: 0
   Freequency: 0.032

@@ -1,18 +1,18 @@
 {
-  "name": "com.homelessskin.shaders",
-  "displayName": "Shaders",
+  "name": "com.homelessskin.shader-editor",
+  "displayName": "Shader Editor",
   "version": "1.0.0",
-  "description": "shaders",
+  "description": "shader editor",
   "author": {
     "name": "RU_1n",
     "email": "your@email.com"
   },
   "keywords": [
-    "shaders"
+    "shader editor"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/homelessskin/shared-shaders.git"
+    "url": "https://github.com/homelessskin/shared-shader-editor.git"
   },
   "hideInEditor": false,
   "dependencies": {

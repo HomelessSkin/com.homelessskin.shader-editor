@@ -1,15 +1,14 @@
+#if UNITY_EDITOR
 using Core;
 
 using Input;
 
 using Unity.Entities;
 
-using UnityEngine;
-
-namespace Shaders
+namespace ShaderEditor
 {
     [UpdateInGroup(typeof(InputSystemGroup))]
-    partial class CodePointerSystem : PointerSystem, ICustomizable<CodePointerSettings>
+    partial class CodePointerSystem : PointerSystem, IGroupSystem<CodePointerSettings>
     {
         public bool IsActive => TypeSettings && PlayerCamera;
         public CodePointerSettings TypeSettings => Settings as CodePointerSettings;
@@ -35,3 +34,4 @@ namespace Shaders
         }
     }
 }
+#endif
