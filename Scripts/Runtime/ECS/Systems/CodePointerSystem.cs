@@ -5,6 +5,8 @@ using Input;
 
 using Unity.Entities;
 
+using UnityEngine;
+
 namespace ShaderEditor
 {
     [UpdateInGroup(typeof(InputSystemGroup))]
@@ -19,6 +21,12 @@ namespace ShaderEditor
                 return;
 
             base.Proceed();
+        }
+        protected override void ClickAction()
+        {
+            base.ClickAction();
+
+            Sys.Add_M(new OuterInput { Title = "Click" }, EntityManager);
         }
         protected override void DownScrollAction()
         {
