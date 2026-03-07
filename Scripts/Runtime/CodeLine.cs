@@ -25,7 +25,9 @@ namespace ShaderEditor
         [Space]
         [SerializeField] TMP_Text[] Indices;
 
+        bool IsEditStopped;
         int Index;
+        int CaretPosition;
         string PureText;
 
         public override void OnPointerDown(PointerEventData eventData)
@@ -53,19 +55,36 @@ namespace ShaderEditor
 
             Input.text = PureText;
             Input.Select();
+            Input.MoveToEndOfLine(false, false);
+        }
+        public void StopEdit()
+        {
+            IsEditStopped = true;
+
+            Input.DeactivateInputField(false);
         }
         public void SetText(string text)
         {
+            if (Input)
+            {
+                if (string.IsNullOrEmpty(Content.text))
+                    CaretPosition = Input.caretPosition;
+
+                Input.text = "";
+            }
+
             PureText = text;
 
             // TODO: format text with rich tags
             Content.text = text;
-
-            if (Input)
-                Input.text = "";
         }
-        public void EndEdit() =>
-            Sys.Add_M(new OuterInput { Title = "Code Line Edit End" }, World.DefaultGameObjectInjectionWorld.EntityManager);
+        public void EndEdit()
+        {
+            if (IsEditStopped)
+                IsEditStopped = false;
+            else
+                Sys.Add_M(new OuterInput { Title = "Code Line Edit End" }, World.DefaultGameObjectInjectionWorld.EntityManager);
+        }
         public void SetPointerStateUI() =>
                 Sys.Add(new SetPointerStateRequest { State = MouseState.UI }, World.DefaultGameObjectInjectionWorld.EntityManager);
         public void Move() =>
@@ -83,6 +102,13 @@ namespace ShaderEditor
             Parent.anchoredPosition = pivot + new Vector2Int(0, -20 * index);
         }
         public string GetText() => PureText;
+        public string GetOverText()
+        {
+            var result = PureText.Substring(CaretPosition);
+            SetText(PureText.Remove(CaretPosition));
+
+            return result;
+        }
         public RectTransform GetParent() => Parent;
 
         void SetIndices(int index)

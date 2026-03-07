@@ -36,12 +36,14 @@ namespace ShaderEditor
             public int ScrollPower = 10;
             public float ScrollSpeed = 10f;
 
-            bool IsEditActive;
+            public bool IsEditActive;
             bool BraceStep;
 
             int MinY;
             int MaxY;
             int CurrentTab = 0;
+            public int EditLine = -1;
+            public int LastEditLine = -1;
 
             Vector2 CodeContentShift;
             Vector2Int CodeContentCurrent;
@@ -100,7 +102,6 @@ namespace ShaderEditor
                 if (IsGhostActive)
                     MoveGhost();
             }
-            public void SetAutoRecompile(bool value) => AutoRecompile = value;
             public void ScrollContentDown()
             {
                 CodeContentTarget.y -= ScrollPower;
@@ -112,6 +113,27 @@ namespace ShaderEditor
                 CodeContentTarget.y += ScrollPower;
                 if (CodeContentTarget.y > MaxY)
                     CodeContentTarget.y = MaxY;
+            }
+            public void SetAutoRecompile(bool value) => AutoRecompile = value;
+            public void MoveEdit(int increment)
+            {
+                if (!IsEditActive || EditLine < 0)
+                    return;
+
+                Input[EditLine].StopEdit();
+                {
+                    var result = EditLine + increment;
+                    if (result < 0)
+                        result = 0;
+                    if (result >= Input.Count)
+                        result = Input.Count - 1;
+
+                    var dif = result - EditLine;
+
+                    EditLine = result;
+                    CodeContentTarget.y += 20 * dif;
+                }
+                Input[EditLine].StartEdit();
             }
             public void InitGhost(string input, int index = -1)
             {
@@ -130,7 +152,7 @@ namespace ShaderEditor
             }
             public void CancelGhosting()
             {
-                if (!IsGhostActive)
+                if (!IsGhostActive || IsEditActive)
                     return;
                 IsGhostActive = false;
 
@@ -187,13 +209,37 @@ namespace ShaderEditor
                 IsEditActive = value;
 
                 if (!value)
+                {
+                    LastEditLine = EditLine;
+                    EditLine = -1;
+
                     LastInputTime = Time.realtimeSinceStartup;
+                }
             }
             public async void StartEdit(int index)
             {
                 await FormatTask;
 
+                EditLine = index;
+
                 Input[index].StartEdit();
+            }
+            public async void EnterLine()
+            {
+                if (LastEditLine < 0)
+                    return;
+
+                await FormatTask;
+
+                EditLine = LastEditLine + 1;
+                InsertLine(Input[LastEditLine].GetOverText(), EditLine);
+
+                await FormatBraces();
+
+                IsEditActive = true;
+                Input[EditLine].StartEdit();
+
+                CodeContentTarget.y += 20;
             }
             public async void DropGhost()
             {
@@ -228,6 +274,20 @@ namespace ShaderEditor
 
                 SetEditActive(false);
             }
+            public async void Load(string path)
+            {
+                var content = await File.ReadAllTextAsync(path);
+                if (string.IsNullOrEmpty(content))
+                    return;
+
+                for (int i = 0; i < Input.Count; i++)
+                    Destroy(Input[i].GetParent().gameObject);
+                Input.Clear();
+
+                var lines = content.Split(new[] { "\r\n", "\r", "\n" }, System.StringSplitOptions.None);
+                for (int l = 0; l < lines.Length; l++)
+                    AddLine(l, lines[l]);
+            }
 
             void Recompile()
             {
@@ -246,7 +306,6 @@ namespace ShaderEditor
                     Save();
                 }
             }
-
             void AddLine(int index, string text)
             {
                 if (!LinePrefab ||
@@ -255,13 +314,20 @@ namespace ShaderEditor
 
                 Input.Add(CreateLine(text, index));
 
-                MaxY = GetMaxY();
+                GetMaxY();
             }
             void MoveGhost()
             {
                 var pos = GhostLine.position;
                 pos.y = (int)PointerSystem.Current.y;
                 GhostLine.position = pos;
+            }
+            void GetMaxY()
+            {
+                if (Input.Count == 0)
+                    MaxY = MinY;
+
+                MaxY = 20 * (Input.Count - Screen.height / 20 + 3) + MinY + 40;
             }
 
             async void InsertLine(string text, int index)
@@ -270,7 +336,7 @@ namespace ShaderEditor
 
                 Input.Insert(index, CreateLine(text, index));
 
-                MaxY = GetMaxY();
+                GetMaxY();
             }
             async Task FormatBraces()
             {
@@ -316,13 +382,6 @@ namespace ShaderEditor
                 await Task.Yield();
             }
 
-            int GetMaxY()
-            {
-                if (Input.Count == 0)
-                    return MinY;
-
-                return 20 * (Input.Count - Screen.height / 20 + 3) + MinY + 40;
-            }
             string GetText(CodeLine line) => line.GetText();
             string GetText(GameObject gameObject) => gameObject.GetComponentInChildren<CodeLine>().GetText();
             string GetTab()
@@ -367,6 +426,9 @@ namespace ShaderEditor
             _Codex.StartEdit(input.Index);
         }
         public void EndEditMessage() => _Codex.SetEditActive(false);
+        public void EditUpper() => _Codex.MoveEdit(-1);
+        public void EditLower() => _Codex.MoveEdit(1);
+        public void EnterLine() => _Codex.EnterLine();
         public void StartCodeLineMove(OuterInput input, Command command)
         {
             _Codex.RemoveAt(input.Index);
@@ -378,6 +440,12 @@ namespace ShaderEditor
         public void CancelGhosting() => _Codex.CancelGhosting();
         public void CopyToClipboard() => _Codex.CopyToClipboard();
         public void SaveShader() => _Codex.Save();
+        public void OpenShader()
+        {
+            var path = EditorUtility.OpenFilePanel("Select Shader File", Application.dataPath, "shader");
+            if (!string.IsNullOrEmpty(path))
+                _Codex.Load(path);
+        }
         #endregion
 
         protected override void Awake()

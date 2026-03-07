@@ -192,6 +192,8 @@ MonoBehaviour:
     RecompilePeriod: 5
     ScrollPower: 40
     ScrollSpeed: 10
+    MinY: 0
+    MaxY: 0
     Content: {fileID: 1946231364}
     GhostLine: {fileID: 513791624035526598}
     LinePrefab: {fileID: 3670242762024508441, guid: 3ff74786c11b1a144b7888afd3ce5fb7, type: 3}
@@ -259,7 +261,6 @@ MonoBehaviour:
     - '}'
     - '}'
     - '}'
-    Input: []
 --- !u!1 &79112861
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,6 +309,72 @@ MonoBehaviour:
   InitialPointer: 1
   PointerSettings: {fileID: 11400000, guid: 04a5cdccd706e3f47b3a3b01df080510, type: 2}
   Actions:
+  - Name: On Hold UpArrow
+    Key: 63
+    Type: 2
+    Title: UpArrow
+    Command: {fileID: 0}
+    _Action:
+      RemoveInput: 1
+      Event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 7385549}
+            m_TargetAssemblyTypeName: ShaderEditor.UIManager, com.homelessskin.shader-editor
+            m_MethodName: EditUpper
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - Name: On Hold DownArrow
+    Key: 64
+    Type: 2
+    Title: DownArrow
+    Command: {fileID: 0}
+    _Action:
+      RemoveInput: 1
+      Event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 7385549}
+            m_TargetAssemblyTypeName: ShaderEditor.UIManager, com.homelessskin.shader-editor
+            m_MethodName: EditLower
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - Name: On Up Enter
+    Key: 2
+    Type: 3
+    Title: Enter
+    Command: {fileID: 0}
+    _Action:
+      RemoveInput: 1
+      Event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 7385549}
+            m_TargetAssemblyTypeName: ShaderEditor.UIManager, com.homelessskin.shader-editor
+            m_MethodName: EnterLine
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
   - Name: On Up Escape
     Key: 60
     Type: 3
@@ -321,6 +388,28 @@ MonoBehaviour:
           - m_Target: {fileID: 7385549}
             m_TargetAssemblyTypeName: ShaderEditor.UIManager, com.homelessskin.shader-editor
             m_MethodName: CancelGhosting
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - Name: On Outer Click
+    Key: 0
+    Type: 4
+    Title: Click
+    Command: {fileID: 0}
+    _Action:
+      RemoveInput: 1
+      Event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 7385549}
+            m_TargetAssemblyTypeName: ShaderEditor.UIManager, com.homelessskin.shader-editor
+            m_MethodName: DropGhost
             m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -365,6 +454,50 @@ MonoBehaviour:
           - m_Target: {fileID: 7385549}
             m_TargetAssemblyTypeName: ShaderEditor.UIManager, com.homelessskin.shader-editor
             m_MethodName: ScrollContentUp
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - Name: On Outer Code Line Edit
+    Key: 0
+    Type: 4
+    Title: Code Line Edit
+    Command: {fileID: 0}
+    _Action:
+      RemoveInput: 1
+      Event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 7385549}
+            m_TargetAssemblyTypeName: ShaderEditor.UIManager, com.homelessskin.shader-editor
+            m_MethodName: StartEditMessage
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - Name: On Outer Code Line Edit End
+    Key: 0
+    Type: 4
+    Title: Code Line Edit End
+    Command: {fileID: 0}
+    _Action:
+      RemoveInput: 1
+      Event:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 7385549}
+            m_TargetAssemblyTypeName: ShaderEditor.UIManager, com.homelessskin.shader-editor
+            m_MethodName: EndEditMessage
             m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -440,72 +573,6 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-  - Name: On Outer Code Line Edit
-    Key: 0
-    Type: 4
-    Title: Code Line Edit
-    Command: {fileID: 0}
-    _Action:
-      RemoveInput: 1
-      Event:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 7385549}
-            m_TargetAssemblyTypeName: ShaderEditor.UIManager, com.homelessskin.shader-editor
-            m_MethodName: StartEditMessage
-            m_Mode: 0
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-  - Name: On Outer Code Line Edit End
-    Key: 0
-    Type: 4
-    Title: Code Line Edit End
-    Command: {fileID: 0}
-    _Action:
-      RemoveInput: 1
-      Event:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 7385549}
-            m_TargetAssemblyTypeName: ShaderEditor.UIManager, com.homelessskin.shader-editor
-            m_MethodName: EndEditMessage
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-  - Name: On Outer Click
-    Key: 0
-    Type: 4
-    Title: Click
-    Command: {fileID: 0}
-    _Action:
-      RemoveInput: 1
-      Event:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 7385549}
-            m_TargetAssemblyTypeName: ShaderEditor.UIManager, com.homelessskin.shader-editor
-            m_MethodName: DropGhost
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
 --- !u!1 &479928048
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,9 +609,9 @@ MonoBehaviour:
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: 0}
+  m_SubmitAction: {fileID: 0}
+  m_CancelAction: {fileID: 0}
   m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
@@ -585,6 +652,169 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1009548235
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1973645824}
+    m_Modifications:
+    - target: {fileID: -5530191770354887610, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: -5530191770354887610, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_Color.b
+      value: 0.19607845
+      objectReference: {fileID: 0}
+    - target: {fileID: -5530191770354887610, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_Color.g
+      value: 0.19607845
+      objectReference: {fileID: 0}
+    - target: {fileID: -5530191770354887610, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_Color.r
+      value: 0.19607845
+      objectReference: {fileID: 0}
+    - target: {fileID: -5530191770354887610, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7385549}
+    - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenShader
+      objectReference: {fileID: 0}
+    - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ShaderEditor.UIManager, com.homelessskin.shader-editor
+      objectReference: {fileID: 0}
+    - target: {fileID: -1983071796993563537, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_Pivot.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -104
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528944238508383289, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_text
+      value: Open
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528944238508383289, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_fontSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4528944238508383289, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625946376549601315, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+      propertyPath: m_Name
+      value: Open
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 4703010643014872997, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+--- !u!224 &1009548236 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3445150795387016123, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
+  m_PrefabInstance: {fileID: 1009548235}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1077068977
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1551,6 +1781,7 @@ RectTransform:
   - {fileID: 1390558252}
   - {fileID: 1407175509}
   - {fileID: 1077068978}
+  - {fileID: 1009548236}
   - {fileID: 513791624035526598}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

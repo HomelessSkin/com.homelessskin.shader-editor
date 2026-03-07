@@ -718,7 +718,7 @@ MonoBehaviour:
   m_ReadOnly: 0
   m_RichText: 1
   m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_OnFocusSelectAll: 1
+  m_OnFocusSelectAll: 0
   m_ResetOnDeActivation: 0
   m_KeepTextSelectionVisible: 0
   m_RestoreOriginalTextOnEscape: 1
@@ -1350,7 +1350,7 @@ PrefabInstance:
     - target: {fileID: 87722151410645446, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1444997b19a2d7941a44af17797f449c, type: 3}
+      objectReference: {fileID: 21300000, guid: 19e487f289215934aafa1a8b230ca9db, type: 3}
     - target: {fileID: 87722151410645446, guid: dba588b7d7995b1499b0cd22706d86db, type: 3}
       propertyPath: m_Color.a
       value: 1
