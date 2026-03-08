@@ -1,7 +1,7 @@
 {
   "name": "com.homelessskin.shader-editor",
   "displayName": "Shader Editor",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Unity's built-in shader code editor that works in play mode.",
   "author": {
     "name": "RU_1n",
