@@ -24,6 +24,7 @@ namespace ShaderEditor
         [Serializable]
         class Codex
         {
+
             public string SavePath;
             public float RecompilePeriod = 5f;
 
@@ -171,11 +172,13 @@ namespace ShaderEditor
             {
                 GUIUtility.systemCopyBuffer = CollectAllData();
             }
-            public void Save()
+            public async void Save()
             {
                 if (Input.Count == 0 ||
                      string.IsNullOrEmpty(SavePath))
                     return;
+
+                await FormatTask;
 
                 var name = GetText(Input[0])
                     .Replace("Shader", "")
@@ -194,9 +197,9 @@ namespace ShaderEditor
                 if (!Directory.Exists(dir))
                     Directory.CreateDirectory(dir);
 
-                Debug.Log(name);
+                await File.WriteAllTextAsync($"{dir}/{name}.shader", text);
 
-                File.WriteAllText($"{dir}/{name}.shader", text);
+                Log.Info(this, $"Saved at {dir} as {name}.shader");
 
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
@@ -218,11 +221,16 @@ namespace ShaderEditor
             }
             public async void StartEdit(int index)
             {
+                if (IsEditActive || EditLine == index)
+                    return;
+
                 await FormatTask;
 
                 EditLine = index;
 
                 Input[index].StartEdit();
+
+                SetEditActive(true);
             }
             public async void EnterLine()
             {
@@ -349,12 +357,12 @@ namespace ShaderEditor
                     var line = Input[i];
                     var text = GetText(line).Trim();
 
-                    if (text.Contains("}"))
+                    if (text.Contains("}") && !text.Contains("{"))
                         CurrentTab--;
 
                     line.SetText(GetTab() + text);
 
-                    if (text.Contains("{"))
+                    if (text.Contains("{") && !text.Contains("}"))
                         CurrentTab++;
                 }
 
@@ -384,6 +392,7 @@ namespace ShaderEditor
 
             string GetText(CodeLine line) => line.GetText();
             string GetText(GameObject gameObject) => gameObject.GetComponentInChildren<CodeLine>().GetText();
+            string GetInputText(CodeLine line) => line.GetInputText();
             string GetTab()
             {
                 var tab = "";
@@ -401,7 +410,10 @@ namespace ShaderEditor
                     if (!input)
                         continue;
 
-                    text += GetText(input) + "\n";
+                    if (IsEditActive && c == EditLine)
+                        text += GetInputText(input) + "\n";
+                    else
+                        text += GetText(input) + "\n";
                 }
 
                 return text;
@@ -420,11 +432,7 @@ namespace ShaderEditor
         public void ScrollContentDown() => _Codex.ScrollContentDown();
         public void ScrollContentUp() => _Codex.ScrollContentUp();
         public void SetAutoRecompile(bool value) => _Codex.SetAutoRecompile(value);
-        public void StartEditMessage(OuterInput input, Command command)
-        {
-            _Codex.SetEditActive(true);
-            _Codex.StartEdit(input.Index);
-        }
+        public void StartEditMessage(OuterInput input, Command command) => _Codex.StartEdit(input.Index);
         public void EndEditMessage() => _Codex.SetEditActive(false);
         public void EditUpper() => _Codex.MoveEdit(-1);
         public void EditLower() => _Codex.MoveEdit(1);

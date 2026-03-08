@@ -45,7 +45,7 @@ namespace ShaderEditor
         {
             Index = index;
             if (index >= 0)
-                SetIndices(index);
+                SetIndices(index + 1);
 
             SetText(text);
         }
@@ -97,13 +97,20 @@ namespace ShaderEditor
         {
             Index = index;
             if (index >= 0)
-                SetIndices(index);
+                SetIndices(index + 1);
 
             Parent.anchoredPosition = pivot + new Vector2Int(0, -20 * index);
         }
         public string GetText() => PureText;
+        public string GetInputText() => Input.text;
         public string GetOverText()
         {
+            if (CaretPosition >= PureText.Length)
+                return "";
+
+            Debug.Log(PureText.Length);
+            Debug.Log(CaretPosition);
+
             var result = PureText.Substring(CaretPosition);
             SetText(PureText.Remove(CaretPosition));
 
