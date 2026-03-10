@@ -108,9 +108,6 @@ namespace ShaderEditor
             if (CaretPosition >= PureText.Length)
                 return "";
 
-            Debug.Log(PureText.Length);
-            Debug.Log(CaretPosition);
-
             var result = PureText.Substring(CaretPosition);
             SetText(PureText.Remove(CaretPosition));
 

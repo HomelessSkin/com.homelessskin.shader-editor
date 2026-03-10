@@ -24,7 +24,6 @@ namespace ShaderEditor
         [Serializable]
         class Codex
         {
-
             public string SavePath;
             public float RecompilePeriod = 5f;
 
@@ -432,18 +431,18 @@ namespace ShaderEditor
         public void ScrollContentDown() => _Codex.ScrollContentDown();
         public void ScrollContentUp() => _Codex.ScrollContentUp();
         public void SetAutoRecompile(bool value) => _Codex.SetAutoRecompile(value);
-        public void StartEditMessage(OuterInput input, Command command) => _Codex.StartEdit(input.Index);
+        public void StartEditMessage(OuterInput input) => _Codex.StartEdit(input.Index);
         public void EndEditMessage() => _Codex.SetEditActive(false);
         public void EditUpper() => _Codex.MoveEdit(-1);
         public void EditLower() => _Codex.MoveEdit(1);
         public void EnterLine() => _Codex.EnterLine();
-        public void StartCodeLineMove(OuterInput input, Command command)
+        public void StartCodeLineMove(OuterInput input)
         {
             _Codex.RemoveAt(input.Index);
             _Codex.InitGhost(input.ID, input.Index);
         }
-        public void DuplicateCodeLine(OuterInput input, Command command) => _Codex.InitGhost(input.ID);
-        public void RemoveCodeLine(OuterInput input, Command command) => _Codex.RemoveAt(input.Index);
+        public void DuplicateCodeLine(OuterInput input) => _Codex.InitGhost(input.ID);
+        public void RemoveCodeLine(OuterInput input) => _Codex.RemoveAt(input.Index);
         public void DropGhost() => _Codex.DropGhost();
         public void CancelGhosting() => _Codex.CancelGhosting();
         public void CopyToClipboard() => _Codex.CopyToClipboard();

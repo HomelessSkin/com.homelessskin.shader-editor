@@ -5,8 +5,6 @@ using Input;
 
 using Unity.Entities;
 
-using UnityEngine;
-
 namespace ShaderEditor
 {
     [UpdateInGroup(typeof(InputSystemGroup))]
@@ -15,6 +13,13 @@ namespace ShaderEditor
         public bool IsActive => TypeSettings && PlayerCamera;
         public CodePointerSettings TypeSettings => Settings as CodePointerSettings;
 
+        protected override void SetState(MouseState state)
+        {
+            if (!IsActive)
+                return;
+
+            base.SetState(state);
+        }
         protected override void Proceed()
         {
             if (!IsActive)
